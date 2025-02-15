@@ -8,7 +8,7 @@ import (
 )
 
 func (app *Config) routes() http.Handler {
-	//lets see
+	//lets see whats happend
 	mux := chi.NewRouter()
 
 	mux.Use(cors.Handler(cors.Options{
