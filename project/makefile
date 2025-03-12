@@ -34,7 +34,7 @@ build_auth:
 	cd ../authentication-service && env GOOS=linux CGO_ENABLED=0 go build -o ${AUTH_BINARY} ./cmd/api
 	@echo "Done!"
 
-## build_front: builds the frone end binary
+## build_front: builds the front end binary
 build_front:
 	@echo "Building front end binary..."
 	cd ../front-end && env CGO_ENABLED=0 go build -o ${FRONT_END_BINARY} ./cmd/web
@@ -50,3 +50,15 @@ stop:
 	@echo "Stopping front end..."
 	@-pkill -SIGTERM -f "./${FRONT_END_BINARY}"
 	@echo "Stopped front end!"
+
+## build_broker_container: builds the broker service Docker image
+build_broker_container:
+	@echo "Building broker service Docker image..."
+	cd ../broker-service && docker build -t broker-service .
+	@echo "Done!"
+
+## run_broker_debug: runs the broker service Docker container in debug mode
+run_broker_debug:
+	@echo "Running broker service Docker container in debug mode..."
+	docker run --rm -p 40000:40000 --name broker-service broker-service
+	@echo "Broker service Docker container running in debug mode!"
